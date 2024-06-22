@@ -7,6 +7,10 @@ var gamePattern = [];
 //Tableau pour stocker les boutons cliqués par le joueur
 var userClickedPattern = [];
 
+var level = 0;
+
+var started = true;
+
 /**
  * fonction pour mettre le son
  * @param {} name
@@ -41,6 +45,10 @@ function nextSequence() {
 
   //Mettre le son
   playSound(randomChosenColour);
+
+  //on incrémente à chaque fois et on change le texte
+  level += 1;
+  $("h1").text("Level " + level);
 }
 
 // Vérifie quel bouton a été appuyé: userChosenColour contiendra l'id (le nom de la couleur)
@@ -51,4 +59,13 @@ $(".btn").on("click", function () {
 
   playSound(userChosenColour);
   animatePress(userChosenColour);
+});
+
+//detect when a key is pressed
+$(document).keydown(function (event) {
+  if (started) {
+    $("h1").text("Level " + level);
+    nextSequence();
+    started = false;
+  }
 });
